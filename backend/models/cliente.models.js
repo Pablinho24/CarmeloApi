@@ -26,8 +26,12 @@ const clienteSchema = new conexion.Schema({
     fechaRegistro: {
         type: Date,
         default: Date.now
-    }
-});
+    },
+    usuario: {
+        type: conexion.SchemaTypes.ObjectId,
+        ref:'User'
+    },
+},{versionKe: false});
 
 const clienteModel = conexion.model('clientes', clienteSchema);
 

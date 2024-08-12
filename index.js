@@ -295,7 +295,34 @@ app.delete('/pedidos/:cliente', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+})
 
+const emailService = require('./backend/utils/email.service');
+app.get('/enviarcorreo', async (req, res) => {
+    await emailService.sendEmail(
+        "juanpabloarango.iearm@gmail.com",
+        "Confirmación de Registro",
+        "Bienvenido a la tienda en línea más top de todo el mundo",
+    );
+})
+
+app.get('/registrocompleto', async (req, res) => {
+    const nuevo = {
+        correo: "juanpabloarango.iearm@gmail.com",
+        pass: "12345",
+        rol: "cliente",
+        habilitado: true
+    }
+let usuarioTemporal = await modeloUsuario(nuevo).save();
+console.log(usuarioTemporal)
+const cliente = {
+    nombre : "Juan",
+    telefono: "123456789",
+    direccion: "Calle 123",
+    habilitado: true,
+    usuario: usuarioTemporal._id
+}
+await modeloCliente(cliente).save();
+})
 
 app.listen(process.env.PORT)
