@@ -7,10 +7,16 @@ const mongoose = require('mongoose');
 const logger = require("morgan");
 require('dotenv').config();
 
+const router = require('./backend/router/router');
+
 const app = exp();
+app.use('/v1', router);
+
+
 app.use(exp.urlencoded({ extended: false }));
 app.use(exp.json());
 app.use(logger("dev"));
+
 
 
 const path = require('path')
@@ -161,9 +167,9 @@ app.delete('/clientes/:correo', async (req, res) => {
 app.get('/productos', async (req, res) => {
     try {
         const productos = await productoModel.find({});
-        res.status(200).json(productos);
+        res.render('pages/listarProductos', { productos: productos });
     } catch (error) {
-        res.status(500).json({ message: 'Pedido no encontrado'});
+        res.status(500).json({ message: 'Producto no encontrado'});
     }
 });
 
