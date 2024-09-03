@@ -1,60 +1,93 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <%- include('../partials/head'); %>
 </head>
 
-<body>
-    <main class="container-fluid">
-        <table id="productos" class="table table-striped w-100">
+<body class="container">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Logo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown">Dropdown</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Link</a></li>
+                            <li><a class="dropdown-item" href="#">Another link</a></li>
+                            <li><a class="dropdown-item" href="#">A third link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div style="margin-right: 40px;">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="text" placeholder="Search">
+                    <button style="margin-left: 3%;" class="btn btn-primary" type="button">Search</button>
+                </form>
+            </div>
+            <div>
+                <button style="background-color: transparent; border: none;" class="btn btn-primary" href="#"
+                    type="button">Iniciar sesión</button>
+                <button style="background-color: transparent; border: none;" class="btn btn-primary" href="#"
+                    type="button">Registrarse</button>
+            </div>
+        </div>
+        </div>
+    </nav>
+    <main>
+        <div class="jumbotron">
+            <h1>This is great</h1>
+        </div>
+        <table id="example" class="table table-striped" style="width:100%">
             <thead>
-                <th>ID</th>
-                <th>Productos</th>
-                <th>Descripcion</th>
-                <th>Precio</th>
-                <th>Categoria</th>
-                <th>Imagenes</th>
-                <th>Acciones</th>
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Categoria</th>
+                    <th>Imagen</th>
+                </tr>
             </thead>
-            <tbody>
-                <% productos.forEach(producto=> { %>
-                    <tr>
-                        <td>
-                            <%= producto.id %>
-                        </td>
-                        <td>
-                            <%= producto.title %>
-                        </td>
-                        <td>
-                            <%= producto.description %>
-                        </td>
-                        <td>
-                            <%= producto.price %>
-                        </td>
-                        <td>
-                            <%= producto.category.name %>
-                        </td>
-                        <td>
-                            <%= producto.images %>
-                        </td>
-                        <td>
-                            <button data-bs-toggle="modal" data-bs-target="#editModal" onclick=""><i
-                                    class="bi bi-pencil-square"></i></button>
-                            <button class="btn btn-outline-danger" onclick=""><i class="bi bi-trash"></i></button>
-    
-                        </td>
-                    </tr>
-    
+                <tbody>
+                    <% productos.forEach(producto=> { %>
+                        <tr>
+                            <td>
+                                <%= producto.id %>
+                            </td>
+                            <td>
+                                <%= producto.title %>
+                            </td>
+                            <td>
+                                <%= producto.description %>
+                            </td>
+                            <td>
+                                <%= producto.price %>
+                            </td>
+                            <td>
+                                <%= producto.category.name %>
+                            </td>
+                            <td>
+                                <%= producto.images %>
+                            </td>
                     <%})%>
-            </tbody>
-        </table>
+                        </tr>
+                </tbody>
     </main>
 
-    <%- include ('../partials/footer'); %>
-    <script>
-        new DataTable('#productos');
-    </script>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 
 </body>
+
+</html>

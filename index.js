@@ -11,7 +11,6 @@ const router = require('./backend/router/router');
 
 const app = exp();
 
-
 app.use(exp.urlencoded({ extended: false }));
 app.use(exp.json());
 app.use(logger("dev"));
@@ -21,10 +20,11 @@ app.use(logger("dev"));
 const path = require('path')
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, '/frontend/views'));
+app.use(exp.static('./frontend/public'));
 
 app.use('/v1', router);
 app.get('/mostrar', async (req, res) => {
-    const consulta = await modeloUsuario.find({});
+    const consulta = await userModels.find({});
 
     res.render('pages/index', {
         usuarios: consulta,
@@ -39,6 +39,8 @@ app.get('/enviarcorreo', async (req, res) => {
         "Bienvenido a la tienda en línea más top de todo el mundo",
     );
 });
+
+
 
 app.get('/registrocompleto', async (req, res) => {
     const nuevo = {

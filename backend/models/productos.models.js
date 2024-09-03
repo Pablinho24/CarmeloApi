@@ -1,10 +1,6 @@
 const conexion = require('../config/connection');
 
 const productoSchema = new conexion.Schema({
-    id: {
-        type: Number,
-        required: [true, 'El ID es obligatorio']
-    },
     title: {
         type: String,
         required: [true, 'El título es obligatorio']
