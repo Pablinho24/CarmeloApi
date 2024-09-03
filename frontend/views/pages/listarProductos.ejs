@@ -6,49 +6,51 @@
     <%- include('../partials/head'); %>
 </head>
 
-<body class="container">
-    <table id="productos" class="table table-striped">
-        <thead>
-            <th>ID</th>
-            <th>Productos</th>
-            <th>Descripcion</th>
-            <th>Precio</th>
-            <th>Categoria</th>
-            <th>Imagenes</th>
-            <th>Acciones</th>
-        </thead>
-        <tbody>
-            <% productos.forEach(producto=> { %>
-                <tr>
-                    <td>
-                        <%= producto.id %>
-                    </td>
-                    <td>
-                        <%= producto.title %>
-                    </td>
-                    <td>
-                        <%= producto.description %>
-                    </td>
-                    <td>
-                        <%= producto.price %>
-                    </td>
-                    <td>
-                        <%= producto.category.name %>
-                    </td>
-                    <td>
-                        <%= producto.images %>
-                    </td>
-                    <td>
-                        <button data-bs-toggle="modal" data-bs-target="#editModal" onclick=""><i
-                                class="bi bi-pencil-square"></i></button>
-                        <button class="btn btn-outline-danger" onclick=""><i class="bi bi-trash"></i></button>
-
-                    </td>
-                </tr>
-
-                <%})%>
-        </tbody>
-    </table>
+<body>
+    <main class="container-fluid">
+        <table id="productos" class="table table-striped w-100">
+            <thead>
+                <th>ID</th>
+                <th>Productos</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Categoria</th>
+                <th>Imagenes</th>
+                <th>Acciones</th>
+            </thead>
+            <tbody>
+                <% productos.forEach(producto=> { %>
+                    <tr>
+                        <td>
+                            <%= producto.id %>
+                        </td>
+                        <td>
+                            <%= producto.title %>
+                        </td>
+                        <td>
+                            <%= producto.description %>
+                        </td>
+                        <td>
+                            <%= producto.price %>
+                        </td>
+                        <td>
+                            <%= producto.category.name %>
+                        </td>
+                        <td>
+                            <%= producto.images %>
+                        </td>
+                        <td>
+                            <button data-bs-toggle="modal" data-bs-target="#editModal" onclick=""><i
+                                    class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-outline-danger" onclick=""><i class="bi bi-trash"></i></button>
+    
+                        </td>
+                    </tr>
+    
+                    <%})%>
+            </tbody>
+        </table>
+    </main>
 
     <%- include ('../partials/footer'); %>
     <script>

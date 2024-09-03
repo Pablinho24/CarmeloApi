@@ -37,6 +37,8 @@ const pedidoSchema = new conexion.Schema({
         type: Date,
         default: Date.now
     }
+}, {
+    versionKey: false
 });
 
 // Usa `mongoose.models` para evitar sobrescribir el modelo

@@ -1,25 +1,11 @@
-const productoModel = require('../models/producto.models');
+const productoModel = require('../models/productos.models');
 
-exports.verProductos  = async (req, res) => {
+exports.verProducto  = async (req, res) => {
     try {
         const productos = await productoModel.find({});
         res.render('pages/listarProductos', { productos: productos });
     } catch (error) {
         res.status(500).json({ message: 'Producto no encontrado'});
-    }
-};
-
-exports.verPrecio = async (req, res) => {
-    try {
-        // Buscar el producto por el campo `precio`
-        const producto = await productoModel.findOne({ price: req.params.precio });
-        if (producto) {
-            res.status(200).json(producto);
-        } else {
-            res.status(404).json({ message: 'Producto no encontrado' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
     }
 };
 
