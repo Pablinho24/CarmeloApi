@@ -23,14 +23,7 @@ app.set('views', path.join(__dirname, '/frontend/views'));
 app.use(exp.static('./frontend/public'));
 
 app.use('/v1', router);
-app.get('/mostrar', async (req, res) => {
-    const consulta = await userModels.find({});
 
-    res.render('pages/index', {
-        usuarios: consulta,
-
-    });
-})
 const emailService = require('./backend/utils/email.service');
 app.get('/enviarcorreo', async (req, res) => {
     await emailService.sendEmail(
@@ -39,8 +32,6 @@ app.get('/enviarcorreo', async (req, res) => {
         "Bienvenido a la tienda en línea más top de todo el mundo",
     );
 });
-
-
 
 app.get('/registrocompleto', async (req, res) => {
     const nuevo = {

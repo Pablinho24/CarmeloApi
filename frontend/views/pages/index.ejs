@@ -4,60 +4,29 @@
     <%- include('../partials/head'); %>
 </head>
 
-<body class="container">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Azura</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Categorias</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <button style="background-color: transparent; border: none;" class="btn btn-primary" href="#"
-                    type="button">Iniciar sesión</button>
-                <button style="background-color: transparent; border: none;" class="btn btn-primary" href="#"
-                    type="button">Registrarse</button>
-            </div>
-        </div>
-        </div>
-    </nav>
-    <main style="display: flex; flex-wrap: wrap;">
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    
+    <main style="display: flex; justify-content: center;">
         <% productos.forEach(producto => { %>
         <div class="card mb-3" style="max-width: 540px; margin-top: 5%; margin-right: 5%;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="<%= producto.images %>" class="img-fluid rounded-start" alt="<%= producto.title %>">
-              </div>
-              <div class="col-md-8" style="display: flex;">
+              <div style="display: flex;">
                 <div class="card-body" style="margin-top: 5px;">
+                    <% producto.images.forEach(imageUrl => { %>
+                        <img src="<%= imageUrl %>" class="card-img-top">
+                    <% }) %>
                   <h5 class="card-title"><%= producto.title %></h5>
                   <p class="card-text"><%= producto.description %></p>
                   <p class="card-text">Precio: $<%= producto.price %></p>
                   <p class="card-text">Categoría: <%= producto.category.name %></p>
-                  <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+                  <button type="submit" class="btn btn-primary"><i class="bi bi-cart4"> Agregar al carrito</i></button>
                 </div>
               </div>
-            </div>
           </div>
         <% }) %>
     </main>
-
-
     <footer>
         <%- include('../partials/footer'); %>
     </footer>

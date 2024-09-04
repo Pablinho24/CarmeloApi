@@ -1,9 +1,10 @@
 const productoModel = require('../models/productos.models');
 
+
 exports.verProducto  = async (req, res) => {
     try {
         const productos = await productoModel.find({});
-        res.render('pages/listarProductos', { productos: productos });
+        return productos
     } catch (error) {
         res.status(500).json({ message: 'Producto no encontrado'});
     }

@@ -5,11 +5,27 @@ const pedidosController = require('../controller/pedidos.controller');
 const express = require('express');
 const router = express.Router();
 
-//Controlador de Productos.
-router.get('/productos', productoController.verProducto);
+// index
+router.get('/index', async (req, res) => {
+    const productos = await productoController.verProducto()
+    res.render('pages/index', { productos });
+});     
+
+
+
+//Controlador de Productos
+router.get('/productosAdmin', async (req, res) => {
+    const productos = await productoController.verProducto()
+    res.render('pages/listarProductos', { productos });
+});
+
+
+
 router.post('/productos', productoController.agregarProducto);
 router.delete('/productos', productoController.eliminarProducto);
 router.put('/productos', productoController.actualizarProducto);
+//Carrito
+router.get('/carrito', )
 
 //Controlador de Clientes
 router.get('/clientes', clientesController.verCliente);
