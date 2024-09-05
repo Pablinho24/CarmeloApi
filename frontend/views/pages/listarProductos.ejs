@@ -48,8 +48,8 @@
                                 <img src="<%= producto.images %>" style="height: 80px;">
                             </td>
                             <td>
-                                <button class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-primary"data-bs-toggle="modal" data-bs-target="#actualizarProducto<%= producto._id %>" ><i class="bi bi-pencil-square"></i></button>
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarProducto<%= producto._id %>"><i class="bi bi-trash"></i></button>
                                 <button class="btn btn-warning" data-bs-target="#verProducto_<%= producto._id %>" data-bs-toggle="modal"><i class="bi bi-eye"></i></button>
                             </td>
                     <%})%>
@@ -71,14 +71,69 @@
                         <img src="<%= producto.images %>" style="width: 150px; height: 150px;">
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
                 </div>
             </div>
-
         <%})%>
+        <% productos.forEach(producto => { %>
+            <div class="modal fade" id="eliminarProducto<%= producto._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Producto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <h5>Descripcion: <%= producto.description %> </h5>
+                            <h5>Precio: <%= producto.price %> </h5>
+                            <h5>Categoría: <%= producto.category.name %> </h5>
+                            <img src="<%= producto.images %>" style="width: 150px; height: 150px;">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="" type="button" class="btn btn-danger">Eliminar producto</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <% }) %>
     </main>
+    <% productos.forEach(producto => { %>
+        <div class="modal fade" id="actualizarProducto<%= producto._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar Producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/productos/<%= producto.referencia %>">
+                <div class="modal-body">
+                    <div class="modal-body"">
+                        <label>Nombre: <%= producto.title %> </label>
+                        <input class="form-control" type="text" value="<%= producto.title %>">
+                        <label>Descripcion: <%= producto.description %> </label>
+                        <input class="form-control" type="text" value="<%= producto.description %>">
+                        <label>Precio: <%= producto.price %> </label>
+                        <input class="form-control" type="number"  value="<%= producto.price %>">
+                        <label>Categoria: <%= producto.category.name %> </label>
+                        <input class="form-control" type="text" value="<%= producto.category.name %>">
+
+                        <img src="<%= producto.images %>" style=" margin-top: 4%; width: 150px; height: 150px;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    <% }) %>
+</main>
     <footer>
         <%- include('../partials/footer'); %>
     </footer>

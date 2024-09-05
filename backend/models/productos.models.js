@@ -1,6 +1,12 @@
 const conexion = require('../config/connection');
 
 const productoSchema = new conexion.Schema({
+
+    referencia: {
+        type: String,
+        required: [true, 'La referencia es obligatoria']
+    },
+
     title: {
         type: String,
         required: [true, 'El título es obligatorio']
