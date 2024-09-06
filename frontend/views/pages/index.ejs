@@ -9,9 +9,9 @@
         <%- include('../partials/header'); %>
     </header>
     
-    <main style="display: flex; justify-content: center;">
+    <main style="display: flex; flex-wrap:wrap;">
         <% productos.forEach(producto => { %>
-        <div class="card mb-3" style="max-width: 540px; margin-top: 5%; margin-right: 5%;">
+        <div class="card mb-3 w-21" style="max-width: 540px; margin-top: 5%; margin-left:1%; ">
               <div style="display: flex;">
                 <div class="card-body" style="margin-top: 5px;">
                     <% producto.images.forEach(imageUrl => { %>
@@ -25,11 +25,16 @@
                 </div>
               </div>
           </div>
+          
         <% }) %>
+
+        
     </main>
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
+
+    
 
 </body>
 

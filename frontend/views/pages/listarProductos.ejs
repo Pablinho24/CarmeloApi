@@ -15,6 +15,38 @@
         <div class="jumbotron">
             <h1>Todos los productos</h1>
         </div>
+        <div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/v1/productos" method="post">
+                <div class="modal-body">
+                    <div class="modal-body"">
+                        <label>Referencia: </label>
+                        <input class="form-control" type="text" name="referencia">
+                        <label>Nombre:  </label>
+                        <input class="form-control" type="text" name="title">
+                        <label>Descripcion: </label>
+                        <input class="form-control" type="text" name="description">
+                        <label>Precio: </label>
+                        <input class="form-control" type="number" name="price">
+                        <label>Categoria:  </label>
+                        <input class="form-control" type="text" name="category"><label>Imagen: </label>
+                        <input class="form-control" type="text" name="images">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCrear">Agregar Producto</button>
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
@@ -94,7 +126,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button onclick="" type="button" class="btn btn-danger">Eliminar producto</button>
+                        <button onclick="deleteOne('<%= producto._id %>')" type="button" class="btn btn-danger">Eliminar producto</button>
                     </div>
                 </div>
                 </div>
@@ -104,32 +136,32 @@
     <% productos.forEach(producto => { %>
         <div class="modal fade" id="actualizarProducto<%= producto._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar Producto</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/productos/<%= producto.referencia %>">
-                <div class="modal-body">
-                    <div class="modal-body"">
-                        <label>Nombre: <%= producto.title %> </label>
-                        <input class="form-control" type="text" value="<%= producto.title %>">
-                        <label>Descripcion: <%= producto.description %> </label>
-                        <input class="form-control" type="text" value="<%= producto.description %>">
-                        <label>Precio: <%= producto.price %> </label>
-                        <input class="form-control" type="number"  value="<%= producto.price %>">
-                        <label>Categoria: <%= producto.category.name %> </label>
-                        <input class="form-control" type="text" value="<%= producto.category.name %>">
-
-                        <img src="<%= producto.images %>" style=" margin-top: 4%; width: 150px; height: 150px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar Producto</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form id="formActualizarProducto<%= producto._id %>" action="/v1/productos/<%= producto._id %>" method="post">
+                        <div class="modal-body">
+                            <div class="modal-body">
+                                <label>Nombre: </label>
+                                <input class="form-control" type="text" name="title" value="<%= producto.title %>">
+                                <label>Descripcion: </label>
+                                <input class="form-control" type="text" name="description" value="<%= producto.description %>">
+                                <label>Precio: </label>
+                                <input class="form-control" type="number" name="price" value="<%= producto.price %>">
+                                <label>Categoria: </label>
+                                <input class="form-control" type="text" name="category" value="<%= producto.category.name %>">
+                                <label>Imagen: </label>
+                                <input class="form-control" type="text" name="images" value="<%= producto.images %>">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Actualizar Producto</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-                </form>
-            </div>
             </div>
         </div>
     <% }) %>
@@ -138,6 +170,49 @@
         <%- include('../partials/footer'); %>
     </footer>
 
-</body>
+<script>
+    function deleteOne(productId) {
+        fetch(`/v1/productos/${productId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Producto eliminado correctamente');
+            } else {
+                alert('No se pudo eliminar el producto');
+            }
+        })
+        .catch(error => {
+            console.error('Error al eliminar producto:', error);
+        });
+    }
+</script>
 
+<script>
+    document.querySelectorAll('form[id^="formActualizarProducto"]').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita el envío del formulario por defecto
+            const formData = new FormData(this);
+            const data = new URLSearchParams(formData).toString();
+            const productId = this.action.split('/').pop();
+
+            fetch(`/v1/productos/${productId}`, {
+                method: 'PUT',
+                body: data
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Producto actualizado correctamente');
+                    window.location.re
+                } else {
+                    alert('No se pudo actualizar el producto');
+                }
+            })
+            .catch(error => {
+                console.error('Error al actualizar producto:', error);
+            });
+        });
+    });
+</script>
+</body>
 </html>

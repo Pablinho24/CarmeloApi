@@ -14,16 +14,14 @@ router.get('/index', async (req, res) => {
 
 
 
-//Controlador de Productos
-//Listar productos admin y el CRUD.
+
 router.get('/productosAdmin', async (req, res) => {
     const productos = await productoController.verProducto()
     res.render('pages/listarProductos', { productos });
 });
 
 router.post('/productos', productoController.agregarProducto);
-router.post('/productos/:id', productoController.actualizarProducto);
-
+router.put('/productos/:id', productoController.actualizarProducto);
 router.delete('/productos/:id', productoController.eliminarProducto);
 
 //Controlador de Clientes

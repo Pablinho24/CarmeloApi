@@ -24,6 +24,16 @@
           <button style="background-color: transparent; border: none;" class="btn btn-primary" href="#"
               type="button">Iniciar sesión</button>
           <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCarrito" aria-controls="offcanvasRight"><i class="bi bi-cart4"></i></button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrito" aria-labelledby="offcanvasCarritoLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasCarritoLabel">Carrito de Compras</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul id="carrito-productos" class="list-group">
+              </ul>
+            </div>
+          </div>
       </div>
   </div>
   </div>
